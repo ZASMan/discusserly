@@ -5,10 +5,18 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
-  </body>
+		<% if logged_in? %>
+			<%= link_to 'Logout', session_path, method: :delete %>
+    <% else %>
+			<%= link_to "Sign up", new_user_path %>
+			<%= link_to "Log in", login_path %>
+		<% end %>
+		<%= render partial: "shared/navbar" %>
+		<%= yield %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  	
+	</body>
 </html>
