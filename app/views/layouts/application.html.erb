@@ -8,14 +8,39 @@
   </head>
 
   <body>
-		<% if logged_in? %>
-			<%= link_to 'Logout', session_path, method: :delete %>
-    <% else %>
-			<%= link_to "Sign up", new_user_path %>
-			<%= link_to "Log in", login_path %>
-		<% end %>
 		<%= render partial: "shared/navbar" %>
-		<%= yield %>
+    
+    <!-- Canvas Container -->
+    <div canvas="container">
+      <!-- Top heading container -->
+      <div class="container">
+        <!-- Top Heading Row -->
+        <div class="row">
+          <!-- Top Heading Column -->
+          <div class="col-lg-12">
+            <!-- Top Heading -->
+            <%= link_to 'Home', root_path, :class => "discusserly-button" %>
+            <!-- Display Login Based on User Sign In or not -->
+            <% if logged_in? %>
+              <%= link_to 'Logout', session_path, method: :delete %>
+            <% else %>
+              <%= link_to "Sign up", new_user_path, :class => "discusserly-button" %>
+            <%= link_to "Log in", login_path, :class => "discusserly-button" %>
+            <% end %>
+            <a class="js-toggle-left-slidebar discusserly-button">Menu</a>
+          </div>
+          <!-- Heading Column -->
+        </div>
+        <!-- Heading Row -->
+        </div>
+        <!-- Top Heading Containenr -->
+        <!-- Page Content -->
+      <%= yield %>
+  
+    </div>
+    <!-- Canvas Container -->
+
+
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   	
 	</body>

@@ -1,8 +1,17 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "styles";
-
+@import "style";
+@import "slidebars";
 
 body {
 	background-color: #f0eee0;
+}
+
+.discusserly-button {
+	padding: 1em 1.8em;
+	display: inline-block;
+	background-color: rgba(245, 72, 74, 0.9);
+	color: #fff;
+	border-radius: 20em;
+	
 }
