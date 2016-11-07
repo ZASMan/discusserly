@@ -1,8 +1,15 @@
-%h1 Log In
+.container
+	.row
+		.col-md-4
+		.col-md-4
 
-=form_for(:session, url: login_path) do |f|
-	=f.label :email
-	=f.email_field :email
-	=f.label :password
-	=f.password_field :password
-	=f.submit "Log In"
+			%h1 Log In
+
+			=form_for(:session, url: login_path) do |f|
+				.form-group
+					=f.label :email
+					=f.email_field :email, :class => "form-control"
+					=f.label :password
+					=f.password_field :password, :class => "form-control"
+					=f.submit "Log In", :class => "btn btn-primary"
+		.col-md-4
