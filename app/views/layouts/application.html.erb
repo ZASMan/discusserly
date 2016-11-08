@@ -24,7 +24,8 @@
             <%= link_to 'Home', root_path, :class => "discusserly-button" %>
             <!-- Display Login Based on User Sign In or not -->
             <% if logged_in? %>
-              <%= link_to 'Logout', session_path, method: :delete %>
+              <%= link_to 'Logout', logout_path, method: :delete, :class => "discusserly-button" %>
+							<%= link_to 'Profile', current_user, :class => "discusserly-button" %>
             <% else %>
               <%= link_to "Sign up", new_user_path, :class => "discusserly-button" %>
             <%= link_to "Log in", login_path, :class => "discusserly-button" %>
@@ -37,6 +38,8 @@
         </div>
         <!-- Top Heading Containenr -->
         <!-- Page Content -->
+		<%= render partial: "shared/flash_messages" %>
+
       <%= yield %>
   
     </div>

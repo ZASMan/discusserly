@@ -2,6 +2,9 @@ class UsersController < ApplicationController
 
 	def new
 		@user = User.new
+		respond_to do |format|
+			format.html{ render "new.html.haml", layout: "application.html.erb"
+		end
 	end
 
 
@@ -9,9 +12,29 @@ class UsersController < ApplicationController
 		#Instance Variable for user object being equal to user_params
 		@user = User.new(user_params)
 		if @user.save
-			redirect_to root_url, notice: "Thank you for signing up!"
+			#Need a method to log user in on sign up	
+			log_in @user
+			redirect_to @user
+			flash.now[:notice] = "Thank you for signing up!"
 		else
-			render :new
+			flash.now[:danger] = "Please enter a valid e-mail address and a matching password and password confirmation with at least 6 characters."
+			respond_to do |format|
+				format.html { render "new.html.haml", layout: "application.html.erb"
+		end
+	end
+
+
+	def show
+		@user = User.find(params[:id])
+		respond_to do |format|
+			format.html {render "show.html.haml", layout: "application.html.erb"}
+		end
+	end
+
+	def edit
+		@user = User.find(params[:id])
+		respond_to do |format|
+			format.html {render "edit.html.haml", layout: "application.html.erb"}
 		end
 	end
 
