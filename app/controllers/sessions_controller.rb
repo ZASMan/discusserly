@@ -1,23 +1,32 @@
 class SessionsController < ApplicationController
-  #Render the login page
+  include SessionsHelper
+
+	#Render the login page
 	def new
-  end
+  	respond_to do |format|
+			format.html { render "new.html.haml", layout: "application.html.erb"}
+		end
+	end
 
 	#Create a new session, log in
 	def create
-		user = User.find_by(email: params[:email])
-		if user && user.authenticate(params[:password])
+		user = User.find_by(email: params[:session][:email].downcase)
+		if user && user.authenticate(params[:session][:password])
+			flash.now[:success] = "Sucessful log in."
 			session[:user_id] = user.id
-			redirect_to root_url, notice: "Successful log in."
+			log_in user
+			redirect_to user
 		else
-			flash.now.alert = "Invalid email/password combination."
-			render :new
+			respond_to do |format|
+				flash.now[:error] = "Invalid email/password combination."
+				format.html {render "new.html.haml", layout: "application.html.erb"}
 		end
 	end
 
 	#Log a user out
 	def destroy
-		session[:user_id] = nil
-		redirect_to root_url, notice: "Successful log out."
+		flash[:success] = "Successful log out."
+		log_out
+		redirect_to root_url
 	end
 end

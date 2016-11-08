@@ -1,0 +1,13 @@
+- if flash[:success].present?
+	.row
+		.col-xs-12
+			%p.list-group-item-success{:style=>"text-align:center;padding:10px;"} #{flash[:success]}
+- if flash[:notice].present?
+	.row
+		.col-xs-12
+			%p.list-group-item-info{:style=>"text-align:center;padding:10px;"} #{flash[:notice]}
+- if flash[:error].present?
+	.row
+		.col-xs-12
+			%p.list-group-item-danger{:style=>"text-align:center;padding:10px;"} #{flash[:error]}
+			- flash[:notice] = flash[:error] = nil
