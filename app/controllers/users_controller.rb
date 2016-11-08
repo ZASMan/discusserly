@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 	def new
 		@user = User.new
 		respond_to do |format|
-			format.html{ render "new.html.haml", layout: "application.html.erb"
+			format.html{ render "new.html.haml", layout: "application.html.erb"}
 		end
 	end
 
@@ -19,7 +19,8 @@ class UsersController < ApplicationController
 		else
 			flash.now[:danger] = "Please enter a valid e-mail address and a matching password and password confirmation with at least 6 characters."
 			respond_to do |format|
-				format.html { render "new.html.haml", layout: "application.html.erb"
+				format.html { render "new.html.haml", layout: "application.html.erb"}
+			end
 		end
 	end
 
@@ -43,5 +44,4 @@ class UsersController < ApplicationController
 	def user_params
 		params.require(:user).permit(:email, :password, :password_confirmation)
 	end
-
 end
