@@ -3,7 +3,7 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
 
 	def setup
-		@user = User.new(email: "user@example.com", password: "foobar", password_confirmation: "foobar")
+		@user = User.new(email: "user@example.com", password: "Foobar!1", password_confirmation: "Foobar!1")
 	end
 
 	test "email addresses should be unique" do
@@ -48,4 +48,9 @@ class UserTest < ActiveSupport::TestCase
 		@user.password_confirmation = "foobar2"
 		@user.save
 	end
+
+	test "authenticated? should return false for a user with nil digest" do
+		assert_not @user.authenticated?('')
+	end
+
 end
