@@ -11,13 +11,12 @@ class UsersController < ApplicationController
 	def create
 		#Instance Variable for user object being equal to user_params
 		@user = User.new(user_params)
-		if @user.save
-			#Need a method to log user in on sign up	
+		if @user.save	
 			log_in @user
 			redirect_to @user
 			flash.now[:notice] = "Thank you for signing up!"
 		else
-			flash.now[:danger] = "Please enter a valid e-mail address and a matching password and password confirmation with at least 6 characters."
+			flash.now[:danger] = "Please enter a valid e-mail address and a matching password and password confirmation. Your password must contain 8 or more characters, a digit (0-9), at least one lower case character, at least one upper case character, and a symbol."
 			respond_to do |format|
 				format.html { render "new.html.haml", layout: "application.html.erb"}
 			end

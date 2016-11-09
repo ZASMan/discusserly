@@ -36,12 +36,12 @@
         </div>
         <!-- Heading Row -->
         </div>
-        <!-- Top Heading Containenr -->
+        <!-- Top Heading Containner -->
         <!-- Page Content -->
-		<%= render partial: "shared/flash_messages" %>
+				<%= render partial: "shared/flash_messages" %>
 
       <%= yield %>
-  
+  		<%= debug(params) if Rails.env.development? %>
     </div>
     <!-- Canvas Container -->
 
