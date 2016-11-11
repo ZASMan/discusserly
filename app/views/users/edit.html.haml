@@ -2,7 +2,7 @@
 	.row
 		.col-md-4
 		.col-md-4
-			%h1 Sign Up
+			%h1 Update Profile Settings
 			.form-group
 				=form_for @user do |f|
 					=f.label :name
@@ -13,5 +13,5 @@
 					=f.password_field :password, :class => "form-control"
 					=f.label :password_confirmation
 					=f.password_field :password_confirmation, :class => "form-control"
-					=f.submit "Sign up", :class => "btn btn-primary"
-		.col-md-4	
+					=f.submit "Save Changes", :class => "btn btn-primary"
+		.col-md-4

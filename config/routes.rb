@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
 
+	#Users
   get 'signup' => 'users#new'
 	post 'signup' => 'users#create'
+	#get 'profile' => 'users#show'
+	get 'settings' => 'users#edit'
+	patch 'settings' => 'users#update'
 	resources :users
 	resources :sessions
 	#Login/Logout

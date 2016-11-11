@@ -3,7 +3,7 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
 
 	def setup
-		@user = User.new(email: "user@example.com", password: "Foobar!1", password_confirmation: "Foobar!1")
+		@user = User.new(name: "Example User", email: "user@example.com", password: "Foobar!1", password_confirmation: "Foobar!1")
 	end
 
 	test "email addresses should be unique" do

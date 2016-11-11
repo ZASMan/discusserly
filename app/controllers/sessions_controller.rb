@@ -3,9 +3,7 @@ class SessionsController < ApplicationController
 
 	#Render the login page
 	def new
-  	respond_to do |format|
-			format.html { render "new.html.haml", layout: "application.html.erb"}
-		end
+		render 'new'
 	end
 
 	#Create a new session, log in
@@ -22,10 +20,7 @@ class SessionsController < ApplicationController
 			remember user
 			redirect_to user
 		else
-			respond_to do |format|
-				flash.now[:error] = "Invalid email/password combination."
-				format.html {render "new.html.haml", layout: "application.html.erb"}
-			end
+			render 'new'
 		end
 	end
 
