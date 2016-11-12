@@ -60,3 +60,9 @@ gem 'font-awesome-rails'
 gem 'jquery-ui-rails'
 
 gem 'haml-rails'
+
+gem 'faker'
+
+gem 'will_paginate'
+
+gem 'bootstrap-will_paginate'

@@ -3,6 +3,7 @@ class User < ApplicationRecord
 	#Ensure Email Uniqueness by Downcasing the Email Attribute
 	before_save {self.email = email.downcase }
 	#Validate presence, length, format, and uniqueness (ignoring case)
+	validates :name, presence: true, length: { maximum: 50 }
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	validates :email, presence: true, length: {maximum: 250}, format: {with: VALID_EMAIL_REGEX }, uniqueness: {case_sensitive: false}
 	#Adds ability to save securely hashed password_digest attribute to database
