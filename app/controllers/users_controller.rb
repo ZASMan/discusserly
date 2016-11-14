@@ -4,7 +4,8 @@ class UsersController < ApplicationController
 	before_action :admin_user, only: :destroy
 
 	def index
-		@users = User.paginate(page: params[:page])
+		#@users = User.paginate(page: params[:page])
+		@users = User.where(activated: true).paginate(page: params[:page])
 	end
 
 	def new
@@ -16,9 +17,9 @@ class UsersController < ApplicationController
 	def create
 		#Instance Variable for user object being equal to user_params
 		@user = User.new(user_params)
-		if @user.save	
-			log_in @user
-			redirect_to @user
+		if @user.save
+			@user.send_activation_email
+			redirect_to root_url
 			flash.now[:notice] = "Thank you for signing up!"
 		else
 			flash.now[:danger] = "Please enter a valid e-mail address and a matching password and password confirmation. Your password must contain 8 or more characters, a digit (0-9), at least one lower case character, at least one upper case character, and a symbol."
@@ -29,7 +30,11 @@ class UsersController < ApplicationController
 
 	def show
 		@user = User.find(params[:id])
-		render 'show'
+		if @user.activated?
+			render 'show'
+		else
+			redirect_to root_url
+		end
 	end
 
 	def edit

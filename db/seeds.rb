@@ -15,7 +15,9 @@ User.create(name: "Admin User", email: 'admin@test.com', password: 'Foobar1!', p
 	User.create!(name: name,
 							email: email,
 							password: password,
-							password_confirmation: password)
+							password_confirmation: password,
+							activated: true,
+							activated_at: Time.zone.now)
 end
 
 
@@ -26,5 +28,7 @@ end
 	User.create!(name: name,
 							email: email,
 							password: password,
-							password_confirmation: password)
+							password_confirmation: password,
+							activated: true,
+							activated_at: Time.zone.now)
 end
