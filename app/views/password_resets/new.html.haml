@@ -1,0 +1,9 @@
+.container
+	.row
+		.col-md-4
+		.col-md-4
+			%h1 Forgot Password
+			=form_for(:password_reset, url: password_resets_path) do |f|
+				=f.label :email
+				=f.email_field :email, class: 'form-control'
+				=f.submit "Request Password" , :class => "btn btn-primary"
