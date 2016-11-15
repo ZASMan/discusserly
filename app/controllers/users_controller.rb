@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 	before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
 	before_action :correct_user, only: [:edit, :update]
 	before_action :admin_user, only: :destroy
+	before_action :already_logged_in, only: [:new, :create]
 	#Note: In the sessions controller, unconfirmed users will be
 	#Automatically redirected to root_url and told to confirm email
 
@@ -19,7 +20,7 @@ class UsersController < ApplicationController
 		render "new"
 	end
 
-
+	#Users will be redirected if attempting to use the signup page while logged in
 	def create
 		#Instance Variable for user object being equal to user_params
 		@user = User.new(user_params)
@@ -64,5 +65,13 @@ class UsersController < ApplicationController
 
 	def user_params
 		params.require(:user).permit(:name, :email, :password, :password_confirmation)
+	end
+
+	#For redirecting users who are already authenticated to their own profile page
+	def already_logged_in
+		#current user is not nil
+		if !current_user.nil?
+			redirect_to user_path(current_user.id)
+		end
 	end
 end

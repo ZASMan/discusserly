@@ -11,17 +11,8 @@
 			%ul.nav.navbar-nav
 				%li.active
 					=link_to 'Home', root_path
-				%li.dropdown
-					%a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-						Posts
-						%span.caret
-					%ul.dropdown-menu
-						%li
-							=link_to "View All Posts", posts_path
-						=if logged_in?
-							-#Can only see create post if logged in
-							%li
-								=link_to "New Post", new_post_path
+				%li
+					=link_to 'Posts', posts_path
 				=if not logged_in?
 					-#Not Logged In Links
 					%li
