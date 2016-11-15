@@ -1,21 +1,17 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-body {
-	background-color: #f0eee0;
-}
-
 /*Navbar */
 .navbar-default {
-  background-color: #f5484a;
-  border-color: #f5484a;
+  background-color: #337ab7;
+  border-color: #337ab7;
 }
 .navbar-default .navbar-brand {
   color: #ecf0f1;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #ffdbdb;
+  color: #dbffff;
 }
 .navbar-default .navbar-text {
   color: #ecf0f1;
@@ -25,26 +21,26 @@ body {
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-  color: #ffdbdb;
+  color: #dbffff;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-  color: #ffdbdb;
-  background-color: #f5484a;
+  color: #dbffff;
+  background-color: #337ab7;
 }
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
-  color: #ffdbdb;
-  background-color: #f5484a;
+  color: #dbffff;
+  background-color: #337ab7;
 }
 .navbar-default .navbar-toggle {
-  border-color: #f5484a;
+  border-color: #337ab7;
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-  background-color: #f5484a;
+  background-color: #337ab7;
 }
 .navbar-default .navbar-toggle .icon-bar {
   background-color: #ecf0f1;
@@ -57,7 +53,7 @@ body {
   color: #ecf0f1;
 }
 .navbar-default .navbar-link:hover {
-  color: #ffdbdb;
+  color: #dbffff;
 }
 
 @media (max-width: 767px) {
@@ -66,26 +62,18 @@ body {
   }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: #ffdbdb;
+    color: #dbffff;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: #ffdbdb;
-    background-color: #f5484a;
+    color: #dbffff;
+    background-color: #337ab7;
   }
 }
 
 /*Site */
 
-.discusserly-button {
-	padding: 1em 1.8em;
-	display: inline-block;
-	background-color: rgba(245, 72, 74, 0.9);
-	color: #fff;
-	border-radius: 20em;
-	
-}
 
 .data-index {
 	list-style: none;
