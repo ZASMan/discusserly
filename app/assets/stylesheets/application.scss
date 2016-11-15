@@ -1,11 +1,82 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "style";
-@import "slidebars";
 
 body {
 	background-color: #f0eee0;
 }
+
+/*Navbar */
+.navbar-default {
+  background-color: #f5484a;
+  border-color: #f5484a;
+}
+.navbar-default .navbar-brand {
+  color: #ecf0f1;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #ffdbdb;
+}
+.navbar-default .navbar-text {
+  color: #ecf0f1;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #ecf0f1;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #ffdbdb;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #ffdbdb;
+  background-color: #f5484a;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #ffdbdb;
+  background-color: #f5484a;
+}
+.navbar-default .navbar-toggle {
+  border-color: #f5484a;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #f5484a;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #ecf0f1;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #ecf0f1;
+}
+.navbar-default .navbar-link {
+  color: #ecf0f1;
+}
+.navbar-default .navbar-link:hover {
+  color: #ffdbdb;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #ecf0f1;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #ffdbdb;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #ffdbdb;
+    background-color: #f5484a;
+  }
+}
+
+/*Site */
 
 .discusserly-button {
 	padding: 1em 1.8em;
@@ -16,7 +87,7 @@ body {
 	
 }
 
-.users-index {
+.data-index {
 	list-style: none;
 	margin: 0;
 	li {
@@ -25,3 +96,4 @@ body {
 		border-bottom: 1px solid;
 	}
 }
+

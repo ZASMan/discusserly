@@ -6,7 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create(name: "Admin User", email: 'admin@test.com', password: 'Foobar1!', password_confirmation: 'Foobar1!', admin:true)
+
+#Seed Users
+admin_user = User.create(name: "Admin User", email: 'admin@test.com', password: 'Foobar1!', password_confirmation: 'Foobar1!', admin: true, activated: true, activated_at: Time.zone.now)
+
+regular_user = User.create(name: "Test User", email: 'test@test.com', password: 'Foobar1!', password_confirmation: 'Foobar1!', admin: false, activated: true, activated_at: Time.zone.now)
 
 80.times do |n|
 	name = Faker::Name.name
@@ -31,4 +35,20 @@ end
 							password_confirmation: password,
 							activated: true,
 							activated_at: Time.zone.now)
+end
+
+#Seed Posts
+
+20.times do |n|
+	title = Faker::Company.catch_phrase
+	content = Faker::Hipster.paragraphs(1, true)
+	admin_user.posts.create!(title: title,
+										content: content)
+end
+
+10.times do |n|
+	title = Faker::StarWars.quote
+	content = Faker::Lorem.paragraphs(1)
+	regular_user.posts.create!(title: title,
+														content: content)
 end

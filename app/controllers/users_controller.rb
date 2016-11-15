@@ -2,10 +2,16 @@ class UsersController < ApplicationController
 	before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
 	before_action :correct_user, only: [:edit, :update]
 	before_action :admin_user, only: :destroy
+	#Note: In the sessions controller, unconfirmed users will be
+	#Automatically redirected to root_url and told to confirm email
 
 	def index
-		#@users = User.paginate(page: params[:page])
-		@users = User.where(activated: true).paginate(page: params[:page])
+		if current_user.activated?
+			@users = User.where(activated: true).paginate(page: params[:page])
+		else
+			flash[:error] = "Please confirm your account  before viewing this page."
+			redirect_to root_url
+		end
 	end
 
 	def new
@@ -30,11 +36,6 @@ class UsersController < ApplicationController
 
 	def show
 		@user = User.find(params[:id])
-		if @user.activated?
-			render 'show'
-		else
-			redirect_to root_url
-		end
 	end
 
 	def edit
@@ -45,13 +46,14 @@ class UsersController < ApplicationController
 	def update
 		@user = User.find(params[:id])
 		if @user.update_attributes(user_params)
-			flash.now[:success] = "Your settings have been successfully updated"
+			flash.now[:success] = "Your settings have been successfully updated."
 			redirect_to @user
 		else
 			render 'edit'
 		end
 	end
 
+	#Only Admins can Destroy Users
 	def destroy
 		User.find(params[:id]).destroy
 		flash[:success] = "User deleted"
@@ -62,26 +64,5 @@ class UsersController < ApplicationController
 
 	def user_params
 		params.require(:user).permit(:name, :email, :password, :password_confirmation)
-	end
-
-	#Before Filters
-
-	#Confirms a logged-in user
-	def logged_in_user
-		unless logged_in?
-			flash[:danger] = "Please log in."
-			redirect_to login_url
-		end
-	end
-
-	#Confirms the correct user
-	def correct_user
-		@user= User.find(params[:id])
-		redirect_to(root_url) unless current_user?(@user)
-	end
-
-	#Confirms admin user
-	def admin_user
-		redirect_to(root_url) unless current_user.admin?
 	end
 end

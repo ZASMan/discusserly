@@ -6,6 +6,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 	#with test_user referring to the user key
 	def setup
 		@user = users(:test_user)
+		@unconfirmed_user = users(:unconfirmed_test_user)
 	end
 
 	test "login with invalid information" do
@@ -32,6 +33,13 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 		follow_redirect!
 		assert_select 'a[href=?]', login_path
 		assert_select 'a[href=?]', logout_path, count: 0
+	end
+	
+	test "login as unconfirmed user" do
+		get login_path
+		assert_template 'sessions/new'
+		post login_path, params: { session: { email: @unconfirmed_user.email, password: 'password' }}
+		assert_redirected_to root_url
 	end
 
 end

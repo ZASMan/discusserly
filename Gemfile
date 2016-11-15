@@ -33,9 +33,6 @@ gem 'bcrypt', '~> 3.1.7'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
-	gem 'rspec-rails'
-	gem 'factory_girl_rails'
-	gem 'shoulda-matchers'
 	gem 'rails-controller-testing'
 	gem 'capybara'
 	gem 'minitest-reporters'
@@ -66,3 +63,5 @@ gem 'faker'
 gem 'will_paginate'
 
 gem 'bootstrap-will_paginate'
+
+gem 'bootstrap_form'
