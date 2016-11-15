@@ -1,9 +1,9 @@
 class Post < ApplicationRecord
   belongs_to :user
 	default_scope -> { order(created_at: :desc) }
-	validates :title, presence: true, length: {maximum: 100}
+	validates :title, presence: true, length: {maximum: 256}
 	validates :user_id, presence: true
-	validates :content, presence: true, length: {maximum: 1000}
+	validates :content, presence: true, length: {maximum: 1500}
 	
 	#Update post to show name of author
 	def self.update_created_by(creator)

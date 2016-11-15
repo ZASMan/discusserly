@@ -22,8 +22,8 @@ class PostTest < ActiveSupport::TestCase
 		assert_not @post.valid?
 	end
 
-	test "title should be less than 100 characters" do
-		@post.title = "a" * 150
+	test "title should be less than 256 characters" do
+		@post.title = "a" * 300
 		assert_not @post.valid?
 	end
 
