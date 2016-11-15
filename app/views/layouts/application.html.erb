@@ -22,15 +22,19 @@
           <div class="col-lg-12">
             <!-- Top Heading -->
             <%= link_to 'Home', root_path, :class => "discusserly-button" %>
-            <!-- Display Login Based on User Sign In or not -->
+            <!-- Logged In Links -->
             <% if logged_in? %>
               <%= link_to 'Logout', logout_path, method: :delete, :class => "discusserly-button" %>
 							<%= link_to 'Settings', edit_user_path(@current_user.id), :class => "discusserly-button" %>
             <%= link_to "Members", users_path, :class => "discusserly-button" %>
-						<% else %>
-              <%= link_to "Sign up", new_user_path, :class => "discusserly-button" %>
-            <%= link_to "Log in", login_path, :class => "discusserly-button" %>
+						<% end %>
+            <!-- Not Logged In Links-->
+						<% if not logged_in? %>
+							<%= link_to "Sign up", new_user_path, :class => "discusserly-button" %>
+            	<%= link_to "Log in", login_path, :class => "discusserly-button" %>
             <% end %>
+						<!-- Public URL's -->
+						<%= link_to "Posts", posts_path, :class => "discusserly-button" %>
             <a class="js-toggle-left-slidebar discusserly-button">Menu</a>
           </div>
           <!-- Heading Column -->

@@ -1,0 +1,9 @@
+.container
+	.row
+		.col-md-6
+			=form_for(@post) do |f|
+				=f.label :title
+				=f.text_field :title, :class => "form-control"
+				=f.label :content
+				=f.text_field :content, :class => "form-control"
+				=f.submit "Update Post", :class => "btn btn-primary"

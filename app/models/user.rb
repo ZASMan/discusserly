@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+	#User has many posts which wil be destroyed if user destroyed
+	has_many :posts, dependent: :destroy
 	attr_accessor :remember_token, :activation_token, :reset_token
 	#Create an activation digest for user to register account
 	before_create :create_activation_digest

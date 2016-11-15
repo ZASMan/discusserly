@@ -16,8 +16,16 @@ second_test_user:
 third_test_user:
  name: Third Test User
  email: third_test_user@test.com
+ password_digest: <%= User.digest('password') %>
  activated: true
  activated_at: <%= Time.zone.now %>
+
+unconfirmed_test_user:
+ name: Unconfirmed Test User
+ email: unconfirmed_test_user@test.com
+ password_digest: <%= User.digest('password') %>
+ activated: false
+ activated_at: 
 
 <% 30.times do |n| %>
 user_<%= n %>:
