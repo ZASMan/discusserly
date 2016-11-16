@@ -4,13 +4,6 @@ class ApplicationController < ActionController::Base
 	include UsersHelper
 	include PostsHelper
 
-	def landing_page
-		render "_landing_page"
-	end
-
-
-	private
-
 
 end
 

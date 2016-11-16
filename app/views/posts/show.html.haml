@@ -1,17 +1,16 @@
 .container
 	.row
 		.col-md-6
-			%h1
-				=@post.title
-			%p
-				=@post.content
-			%p
-				=@post.user.name
-			%p
-				=@post.created_at
-			%ul
-				%li
-					=link_to 'Edit', edit_post_path(@post)
-				%li
-					=link_to 'Back', posts_path
-				%li
+			.panel.panel-primary{:style => 'text-align:center'}
+				.panel-heading
+					.panel-title
+						=@post.title
+				.panel-body
+					%h5
+						by
+						=@post.user.name
+					%p
+						Submitted on:
+						=@post_submitted_at
+					%p
+						=@post.content

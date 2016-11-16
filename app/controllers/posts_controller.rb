@@ -56,6 +56,7 @@ class PostsController < ApplicationController
 	#Posts are viewable to public
 	def show
 		@post = Post.find(params[:id])
+		@post_submitted_at = @post.created_at.strftime("%a, %B %d, %Y")
 	end
 
 	#Only admins or correct post owners can destroy posts
