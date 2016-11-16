@@ -2,7 +2,7 @@
 	.row
 		.col-md-2
 		.col-md-8
-			=will_paginate
+			
 			%ul.data-index{:style => "text-align:center"}
 				%h1 Posts
 				-@posts.each do |post|
@@ -15,14 +15,21 @@
 								%h5
 									by
 									=post.user.name
+								%h5
+									Submitted on:
+									=post.created_at.strftime("%a, %B %d, %Y")
 								
 								-#Preview of text
 								%p
-									=post.content[0, 100] + "..."
+									=post.content[0, 200] + "..."
 								<center>
-								=link_to 'Read More', post_path(post), :class => 'btn btn-primary'
-								=link_to 'Edit', edit_post_path(post), :class => 'btn btn-warning'
-								=link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure you wish to delete this post? This cannot  be undone'}, :class => 'btn btn-danger'
+								=link_to 'Read More...', post_path(post)
+								%br
+								-if logged_in? && current_user.admin?
+									-#Also need to add a conditional here to display these
+									-#Edit options if the post belongs to the user
+									=link_to 'Edit', edit_post_path(post), :class => 'btn btn-warning'
+									=link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure you wish to delete this post? This cannot  be undone'}, :class => 'btn btn-danger'
 								</center>
 				=will_paginate	
 		.col-md-2

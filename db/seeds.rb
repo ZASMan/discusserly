@@ -41,7 +41,7 @@ end
 
 20.times do |n|
 	title = Faker::Company.catch_phrase
-	content = Faker::Hipster.paragraphs(1, true)
+	content = Faker::Hipster.paragraph(2, true, 4)
 	admin_user.posts.create!(title: title,
 										content: content)
 end
@@ -52,3 +52,11 @@ end
 	regular_user.posts.create!(title: title,
 														content: content)
 end
+
+10.times do |n|
+	title = Faker::Hacker.say_something_smart
+	content = Faker::Lorem.paragraph(2, false, 4)
+	regular_user.posts.create!(title: title,
+														content: content)
+end
+
