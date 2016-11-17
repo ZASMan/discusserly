@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
 	before_action :logged_in_user, only: [:new, :edit, :update, :destroy]
 	before_action :correct_post_owner, only: [:edit, :update, :destroy]
+	#before_action :check_banned_user
 	#Note: In the sessions controller, unconfirmed users will be
 	#Automatically redirected to root_url and told to confirm email
 
@@ -24,6 +25,8 @@ class PostsController < ApplicationController
 		end
 	end
 
+	#Users can only edit/update/destroy a post if that post  belongs to them
+	#Or they are administrator
 	def edit
 		@post = Post.find(params[:id])
 	end

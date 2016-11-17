@@ -1,9 +1,11 @@
 .container
 	.row
 		.col-md-6
-			=form_for(@post) do |f|
+			<center>
+			=form_for @post, html: {multipart: true} do |f|
 				=f.label :title
 				=f.text_field :title, :class => "form-control"
 				=f.label :content
-				=f.text_field :content, :class => "form-control"
+				=f.cktext_area :content, :class => "form-control", ckeditor: {language: 'us'}, :style => "height:500px;width:500px"
 				=f.submit "Update Post", :class => "btn btn-primary"
+				</center>

@@ -42,6 +42,7 @@ class User < ApplicationRecord
   	self.remember_token = User.new_token
 		update_attribute(:remember_digest, User.digest(remember_token))
 	end
+	
 
 	#Returns true if the given token matches the digest
 	def authenticated?(attribute, token)
@@ -82,7 +83,7 @@ class User < ApplicationRecord
 	def password_reset_expired?
 		reset_sent_at < 2.hours.ago
 	end
-	
+
 	private
 
 		def downcase_email
