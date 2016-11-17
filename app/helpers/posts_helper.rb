@@ -5,9 +5,10 @@ module PostsHelper
 	def correct_post_owner
 		@post = Post.find(params[:id])
 		unless current_user.admin?
-			redirect_to(root_url) unless current_user.id = @post.user_id
+			if current_user.id != @post.user_id
+				redirect_to(root_url)
+				flash[:error] = "Sorry, you don't have permission to do that."
+			end
 		end
 	end
-	
-
 end

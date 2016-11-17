@@ -21,7 +21,7 @@
 								
 								-#Preview of text
 								%p
-									=post.content[0, 200] + "..."
+									=post.content.html_safe[0, 200] + "..."
 								<center>
 								=link_to 'Read More...', post_path(post)
 								%br

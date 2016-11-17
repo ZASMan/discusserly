@@ -4,9 +4,13 @@ class Post < ApplicationRecord
 	validates :title, presence: true, length: {maximum: 256}
 	validates :user_id, presence: true
 	validates :content, presence: true, length: {maximum: 1500}
-	
-	#Update post to show name of author
-	def self.update_created_by(creator)
-		update_attribute(:created_by, current_user)
+=begin
+	def check_profanity
+		#Convert the title and content attributes to array 
+		#Loop through the arrays and if they are contained in the
+		#Profanity array, change it to [filtered] and save to array
+		#convert the new array to string and update_attribute
 	end
+=end
+
 end

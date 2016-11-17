@@ -1,26 +1,33 @@
 class PostsController < ApplicationController
-	#The final implementation will be that users can only
-	#edit, update, and destroy their own posts
-	#Unless they are an admin user
 	before_action :logged_in_user, only: [:new, :edit, :update, :destroy]
-	#The correct_post_owner method checks to assure that the post
-	#has the same user_id as the user who created the post
-	#Unless that user is an admin
 	before_action :correct_post_owner, only: [:edit, :update, :destroy]
 	#Note: In the sessions controller, unconfirmed users will be
 	#Automatically redirected to root_url and told to confirm email
 
-	#Only logged in users can see the create new posts page
 	def new
 		@post = Post.new
 		render 'new'
 	end
 
-	#Only logged in users can create a new post
 	def create
 		@post = current_user.posts.build(post_params)
 		respond_to do |format|
 			if @post.save
+				#Update attributes if contain profanity
+				profane_words = %w(ass bastard bitch cock damn fuck shit)
+				post_title = @post.title.split(" ")
+				post_content = @post.content.split(" ")
+				post_title.each do |word|
+					if profane_words.include?(word)
+						@post.safe_title
+					end
+				end
+				post_content.each do |word|
+					if profane_words.include?(word)
+						@post.safe_content
+					end
+				end
+				#Redirect to Post
 				format.html { redirect_to @post}
 				format.json { render :show, status: :created, location: @post }
 			else
@@ -30,16 +37,27 @@ class PostsController < ApplicationController
 		end
 	end
 
-
-	#Users can only edit their own posts (unless they're an admin)
 	def edit
 		@post = Post.find(params[:id])
 	end
 
-	#Users can only update their own posts (unless they're admins)
 	def update
 		@post = Post.find(params[:id])
 		if @post.update_attributes(post_params)
+				#Update attributes if contain profanity
+				profane_words = %w(ass bastard bitch cock damn fuck shit)
+				post_title = @post.title.downcase.split(" ")
+				post_content = @post.content.downcase.split(" ")
+				post_title.each do |word|
+					if profane_words.include?(word)
+						@post.safe_title
+					end
+				end
+				post_content.each do |word|
+					if profane_words.include?(word)
+						@post.safe_content
+					end
+				end
 			flash.now[:success] = "Post has been successfully updated."
 			redirect_to @post
 		else
@@ -47,23 +65,20 @@ class PostsController < ApplicationController
 		end
 	end
 
-
-	#Post index viewable to public
 	def index
 		@posts = Post.all.paginate(page: params[:page])
 	end
 
-	#Posts are viewable to public
 	def show
 		@post = Post.find(params[:id])
 		@post_submitted_at = @post.created_at.strftime("%a, %B %d, %Y")
+		render 'show'
 	end
 
-	#Only admins or correct post owners can destroy posts
 	def destroy
 		Post.find(params[:id]).destroy
 		flash[:success] = "Post successfully deleted"
-		redirect_to users_url
+		redirect_to posts_url
 	end
 
 	private
@@ -71,7 +86,4 @@ class PostsController < ApplicationController
 		def post_params
 			params.require(:post).permit(:title, :content)
 		end
-
-
-
 end
