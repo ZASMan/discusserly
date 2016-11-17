@@ -32,16 +32,26 @@ class PostsEditTest < ActionDispatch::IntegrationTest
 		assert_redirected_to root_url
 	end
 
-	test "profane post titles or content will be automatically filtered" do
+	test "profane post titles or content will be automatically filtered on CREATE" do
 		log_in_as(@non_admin)
 		get new_post_path
 		assert_difference 'Post.count', 1 do
-			post posts_path, params: {post: {title: "SHIT", content: "ass fuck" }}
+			post posts_path, params: {post: {title: "SHIT pizza", content: "shit shit pizza" }}
 		end
 		follow_redirect!
 		assert_template 'posts/show'
-		assert_select 'div.panel-title', text: "[Title filtered due to profanity]."
-		assert_select 'p', text: "The content of this post has been filtered due to profanity"
+		assert_select 'div.panel-title', text: "*filtered* pizza"
+		assert_select 'h6', text: "*filtered* *filtered* pizza"
+	end
+
+	test "profane post titles will be automatically filtered on UPDATE" do
+		log_in_as(@non_admin)
+		get edit_post_path(@non_admin_post)
+		patch post_path(@non_admin_post), params: { post: {title: "SHIT pizza", content: "pizza is good" }}
+		follow_redirect!
+		assert_template 'posts/show'
+		assert_select 'div.panel-title', text: '*filtered* pizza'
+		assert_select 'h6', text: "pizza is good"
 	end
 end
 

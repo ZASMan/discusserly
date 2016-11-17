@@ -13,21 +13,8 @@ class PostsController < ApplicationController
 		@post = current_user.posts.build(post_params)
 		respond_to do |format|
 			if @post.save
-				#Update attributes if contain profanity
-				profane_words = %w(ass bastard bitch cock damn fuck shit)
-				post_title = @post.title.split(" ")
-				post_content = @post.content.split(" ")
-				post_title.each do |word|
-					if profane_words.include?(word)
-						@post.safe_title
-					end
-				end
-				post_content.each do |word|
-					if profane_words.include?(word)
-						@post.safe_content
-					end
-				end
 				#Redirect to Post
+				flash.now[:success] = "Post has been successfully created."
 				format.html { redirect_to @post}
 				format.json { render :show, status: :created, location: @post }
 			else
@@ -44,20 +31,6 @@ class PostsController < ApplicationController
 	def update
 		@post = Post.find(params[:id])
 		if @post.update_attributes(post_params)
-				#Update attributes if contain profanity
-				profane_words = %w(ass bastard bitch cock damn fuck shit)
-				post_title = @post.title.downcase.split(" ")
-				post_content = @post.content.downcase.split(" ")
-				post_title.each do |word|
-					if profane_words.include?(word)
-						@post.safe_title
-					end
-				end
-				post_content.each do |word|
-					if profane_words.include?(word)
-						@post.safe_content
-					end
-				end
 			flash.now[:success] = "Post has been successfully updated."
 			redirect_to @post
 		else
