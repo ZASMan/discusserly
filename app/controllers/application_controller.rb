@@ -5,6 +5,16 @@ class ApplicationController < ActionController::Base
 	include UsersHelper
 	include PostsHelper
 
+	def forbidden
+		if current_user.banned?
+			render 'application/forbidden'
+		else
+			redirect_to root_url
+		end
+	end
+
+	private
+
 
 end
 

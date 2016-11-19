@@ -29,7 +29,15 @@ unconfirmed_test_user:
  password_digest: <%= User.digest('password') %>
  activated: false
  banned: false
- activated_at: 
+ activated_at:
+
+banned_user:
+ name: Banned User
+ email: banned_user@test.com
+ password_digest: <%= User.digest('password') %>
+ activated: true
+ banned: true
+ activated_at: <%= Time.zone.now %>
 
 <% 30.times do |n| %>
 user_<%= n %>:
