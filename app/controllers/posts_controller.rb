@@ -1,7 +1,8 @@
 class PostsController < ApplicationController
-	before_action :logged_in_user, only: [:new, :edit, :update, :destroy]
+	before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
 	before_action :correct_post_owner, only: [:edit, :update, :destroy]
-	#before_action :check_banned_user
+	#We'll let banned users look at posts :)
+	before_action :check_banned_user, only: [:index, :show, :new, :create, :edit, :update, :destroy]
 	#Note: In the sessions controller, unconfirmed users will be
 	#Automatically redirected to root_url and told to confirm email
 
@@ -18,6 +19,14 @@ class PostsController < ApplicationController
 				flash.now[:success] = "Post has been successfully created."
 				format.html { redirect_to @post}
 				format.json { render :show, status: :created, location: @post }
+				#Ban user if their post contained script tags. On the save
+				#The post model will already have filtered out the content,
+				#So we can verify the content here
+				post_title_str = @post.title.downcase
+				post_content_str = @post.content.downcase
+				if post_title_str.include? "*filtered due to malicious content*" or post_content_str.include? "*filtered due to malicious content*"
+					current_user.ban_user
+				end
 			else
 				format.html {render :new }
 				flash[:error] = "Unable to create post"
@@ -61,5 +70,12 @@ class PostsController < ApplicationController
 		
 		def post_params
 			params.require(:post).permit(:title, :content)
+		end
+
+		#Must check and make sure user is logged in AND banned
+		def check_banned_user
+			if !current_user.nil? && current_user.banned?
+				redirect_to forbidden_path
+			end
 		end
 end

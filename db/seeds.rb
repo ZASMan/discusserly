@@ -12,6 +12,9 @@ admin_user = User.create(name: "Admin User", email: 'admin@test.com', password: 
 
 regular_user = User.create(name: "Test User", email: 'test@test.com', password: 'Foobar1!', password_confirmation: 'Foobar1!', admin: false, activated: true, activated_at: Time.zone.now)
 
+banned_user = User.create(name: "Banned User", email: 'banned@test.com', password: 'Foobar1!', password_confirmation: 'Foobar1!', admin: false, activated: true, activated_at: Time.zone.now, banned: true)
+
+
 80.times do |n|
 	name = Faker::Name.name
 	email = Faker::Internet.email

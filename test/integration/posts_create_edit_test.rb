@@ -8,6 +8,8 @@ class PostsEditTest < ActionDispatch::IntegrationTest
 		@admin_post = @admin.posts.create!(title: title, content: content)
 		@non_admin = users(:second_test_user)
 		@non_admin_post = @non_admin.posts.create!(title: title, content: content)
+		@banned_user = users(:banned_user)
+		@banned_user_post = @banned_user.posts.create(title: title, content: content)
 	end
 
 	test "unsuccessful edit will revert to edit page" do
@@ -61,12 +63,21 @@ class PostsEditTest < ActionDispatch::IntegrationTest
 			post posts_path params: { post: { title: "<script>hacker.com/leethaxor.js</script>", content: "<script>www.hacker.com/scripts.js</script>" }}
 		end
 		follow_redirect!
-		assert_template 'posts/show'
-		assert_select 'div.panel-title', text: "*filtered due to malicious content*"
-		assert_select 'h6', text: "*filtered due to malicious content*"
+		#They wil be redirected to their show post, but after if they try
+		#to access any other URL they will be directed to forbidden_path
 		@non_admin.banned?
+		assert_redirected_to forbidden_path
+		delete logout_path
+		log_in_as(@admin)
+		#Log in as a new user and see if the filtered post title appears on the posts path (root_url)
+		get posts_path
+		assert_select 'a', text: "*filtered due to malicious content*"
+	end
+
+	test "banned users attempting to create a new post will be redirected to forbidden page" do
+		log_in_as(@banned_user)
 		get new_post_path
-		#assert_redirected_to root_url
+		assert_redirected_to forbidden_path
 	end
 end
 

@@ -15,12 +15,6 @@ class Post < ApplicationRecord
 		post_content_str = self.content.downcase
 		#Automatically ban user if scripts are found in post title or content string
 		if post_title_str.include? "<script>" or post_title_str.include? "</script>" or post_title_str.include? ".js" or post_title_str.include? "%script" or post_content_str.include? "<script>" or post_content_str.include? "</script>" or post_content_str.include? ".js" or post_content_str.include? "%script"
-			self.user.banned = true
-			if self.user.banned?
-				puts "User is banned"
-			else
-				puts "User is not banned"
-			end
 			self.title = "*filtered due to malicious content*"
 			self.content = "*filtered due to malicious content*"
 		end

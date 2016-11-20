@@ -35,7 +35,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
 		assert_select 'a', text: 'delete', count: 0
 	end
 
-	test "banned user redirected to banned_page" do
+	test "banned user redirected to forbidden path" do
 		log_in_as(@banned_user)
 		get users_path
 		assert_redirected_to forbidden_path
