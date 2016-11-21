@@ -29,9 +29,9 @@ class UsersController < ApplicationController
 		if @user.save
 			@user.send_activation_email
 			redirect_to root_url
-			flash.now[:notice] = "Thank you for signing up!"
+			flash[:success] = "Thank you for signing up!"
 		else
-			flash.now[:danger] = "Please enter a valid e-mail address and a matching password and password confirmation. Your password must contain 8 or more characters, a digit (0-9), at least one lower case character, at least one upper case character, and a symbol."
+			flash[:danger] = "Please enter a valid e-mail address and a matching password and password confirmation. Your password must contain 8 or more characters, a digit (0-9), at least one lower case character, at least one upper case character, and a symbol."
 			render "new"
 		end
 	end
