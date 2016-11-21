@@ -4,7 +4,12 @@
 		.col-md-8
 			
 			%ul.data-index{:style => "text-align:center"}
+				%h1 Welcome to Discusserly! A place for <bold>fun, intelligent and respectful discussion.</bold>
+				-if not logged_in?
+					=link_to 'Sign Up free to join the discussion', new_user_path
 				%h1 Posts
+				-if logged_in?
+					=link_to 'New Post', new_post_path, :class => 'btn btn-success'
 				-@posts.each do |post|
 					%li
 						.panel.panel-primary{:style => "text-align:center"}
@@ -26,10 +31,13 @@
 								=link_to 'Read More...', post_path(post)
 								%br
 								-if logged_in? && current_user.admin?
-									-#Also need to add a conditional here to display these
-									-#Edit options if the post belongs to the user
+									-#Admin Users Will See Edit and Delete Options for All Posts
 									=link_to 'Edit', edit_post_path(post), :class => 'btn btn-warning'
 									=link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure you wish to delete this post? This cannot  be undone'}, :class => 'btn btn-danger'
+								-if logged_in? && post.user_id == current_user.id
+									-#Users can only see Edit and Delete Options for their Own Posts
+									=link_to 'Edit', edit_post_path(post), :class => 'btn btn-warning'
+									=link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure you wish to delete this post? This cannot be undone'}, :class => 'btn btn-danger'
 								</center>
 				=will_paginate	
 		.col-md-2

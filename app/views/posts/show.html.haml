@@ -14,3 +14,6 @@
 						=@post_submitted_at
 					%h6
 						=@post.content.html_safe
+					-if logged_in? && @post.user_id == current_user.id
+						=link_to 'Edit', edit_post_path(@post), :class => 'btn btn-warning'
+						=link_to 'Delete', @post, method: :delete, data: { confirm: 'Are you sure you wish to delete this post? This cannot be undone.'}, :class => 'btn  btn-danger'
