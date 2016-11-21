@@ -84,6 +84,11 @@ class User < ApplicationRecord
 		reset_sent_at < 2.hours.ago
 	end
 
+	#Ban a user
+	def ban_user
+		update_attribute(:banned, true)
+	end
+
 	private
 
 		def downcase_email

@@ -3,7 +3,8 @@ class UsersController < ApplicationController
 	before_action :correct_user, only: [:edit, :update]
 	before_action :admin_user, only: :destroy
 	before_action :already_logged_in, only: [:new, :create]
-	#before_action :check_banned_user
+	#Banned users cannot see anything related to users
+	before_action :check_banned_user, only: [:index, :show, :edit, :update, :destroy]
 	#Note: In the sessions controller, unconfirmed users will be
 	#Automatically redirected to root_url and told to confirm email
 
@@ -75,4 +76,12 @@ class UsersController < ApplicationController
 			redirect_to user_path(current_user.id)
 		end
 	end
+
+	#Must check and make sure current user is logged in AND banned
+	def check_banned_user
+		if !current_user.nil? && current_user.banned?
+			redirect_to forbidden_path
+		end
+	end
+
 end

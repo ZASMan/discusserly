@@ -6,6 +6,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
 		@admin_user = users(:test_user)
 		@non_admin = users(:second_test_user)
 		@unconfirmed_user = users(:unconfirmed_test_user)
+		@banned_user = users(:banned_user)
 	end
 
 	test "for admin index includes pagination and delete links" do
@@ -32,5 +33,11 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
 		log_in_as(@non_admin)
 		get users_path
 		assert_select 'a', text: 'delete', count: 0
+	end
+
+	test "banned user redirected to forbidden path" do
+		log_in_as(@banned_user)
+		get users_path
+		assert_redirected_to forbidden_path
 	end
 end

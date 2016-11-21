@@ -4,7 +4,7 @@ test_user:
  password_digest: <%= User.digest('password') %>
  admin: true
  activated: true
- banned: false
+ banned:
  activated_at: <%= Time.zone.now %>
 
 second_test_user:
@@ -12,7 +12,7 @@ second_test_user:
  email: second_test_user@test.com
  password_digest: <%= User.digest('password') %>
  activated: true
- banned: 
+ banned:
  activated_at: <%= Time.zone.now %>
  
 third_test_user:
@@ -20,7 +20,7 @@ third_test_user:
  email: third_test_user@test.com
  password_digest: <%= User.digest('password') %>
  activated: true
- banned: false
+ banned:
  activated_at: <%= Time.zone.now %>
 
 unconfirmed_test_user:
@@ -28,8 +28,16 @@ unconfirmed_test_user:
  email: unconfirmed_test_user@test.com
  password_digest: <%= User.digest('password') %>
  activated: false
- banned: false
- activated_at: 
+ banned:
+ activated_at:
+
+banned_user:
+ name: Banned User
+ email: banned_user@test.com
+ password_digest: <%= User.digest('password') %>
+ activated: true
+ banned: true
+ activated_at: <%= Time.zone.now %>
 
 <% 30.times do |n| %>
 user_<%= n %>:
@@ -37,7 +45,7 @@ user_<%= n %>:
  email: <%= "user-#{n}@test.com" %>
  password_digest: <%= User.digest('password') %>
  activated: true
- banned: false
+ banned:
  activated_at: <%= Time.zone.now %>
 
 <% end %>
