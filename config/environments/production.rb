@@ -4,7 +4,7 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
   config.assets.js_compressor = :uglifier
-  config.assets.compile = false
+  config.assets.compile = true
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
