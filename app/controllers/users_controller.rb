@@ -32,7 +32,6 @@ class UsersController < ApplicationController
 			flash[:success] = "Thank you for signing up! Please check your email and click the link we sent to confirm your account."
 		else
 			flash[:danger] = "Please enter a valid e-mail address and a matching password and password confirmation. Your password must contain 8 or more characters, a digit (0-9), at least one lower case character, at least one upper case character, and a symbol."
-			render "new"
 		end
 	end
 
