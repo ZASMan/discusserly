@@ -1,3 +1,11 @@
-%h1 Welcome to discusserly! You are viewing the profile for:
+.container
+	.row
+		.col-md-6
+			%h5
+				=@user.name
+			-if not @user.location.nil?
+				%h5
+					=@user.location
+			-if not @user.image_url.nil?
+				%img{:src=>'@user.image_url', :class => 'img-rounded', :style => 'width:304; height:236'}
 
-= @user.email

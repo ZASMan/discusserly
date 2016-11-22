@@ -1,7 +1,6 @@
 .container
 	.row
-		.col-md-4
-		.col-md-4
+		.col-md-6
 			%h1 Sign Up
 			.form-group
 				=form_for @user do |f|
@@ -14,4 +13,11 @@
 					=f.label :password_confirmation
 					=f.password_field :password_confirmation, :class => "form-control"
 					=f.submit "Sign up", :class => "btn btn-primary"
-		.col-md-4	
+		.col-md-6
+			%h1 Your secure password must:
+			%ul
+				%li Contain 8 or more characters
+				%li A digit (0-9)
+				%li At least one lower case character (a-z)
+				%li At least one upper case character (A-Z)
+				%li A symbol (!@#$%)

@@ -97,7 +97,7 @@ class User < ApplicationRecord
 
 		#Creates and assigns the actiation token and digest.
 		#The code for this method is reused from the token and digest
-		#methods for the remember token. The maind ifference is that remember
+		#methods for the remember token. The main difference is that remember
 		#tokens and digests are created for users that already exist in the db,
 		#but the before_create callback happens before the user has been created
 		#So there is no attribute to update. As a result of the callback,

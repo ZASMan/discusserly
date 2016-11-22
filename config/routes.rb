@@ -7,11 +7,9 @@ Rails.application.routes.draw do
 	#Users
   get 'signup' => 'users#new'
 	post 'signup' => 'users#create'
-	#get 'profile' => 'users#show'
-	get 'settings' => 'users#edit'
+	#Account Settings Just for Email and Password
+	get 'account_settings' => 'users#edit'
 	patch 'settings' => 'users#update'
-	resources :users
-	resources :sessions
 	#Login/Logout
 	get 'login' => 'sessions#new'
 	post 'login' => 'sessions#create'
@@ -20,7 +18,15 @@ Rails.application.routes.draw do
 	get 'forbidden' => 'application#forbidden'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 	root 'posts#index'
-	resources :users
+	#Custom RESTful action since there is an "update account settings"
+	#And update profile settings
+	resources :sessions
+	resources :users do
+		member do
+			get :edit_profile
+			patch :update_profile
+		end
+	end
 	resources :account_activations, only: [:edit]
 	resources :password_resets, only: [:new, :create, :edit, :update]
 	resources :posts
