@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 	resources :users do
 		member do
 			get :edit_profile
-			patch :update_profile
+			put :update_profile
 		end
 	end
 	resources :account_activations, only: [:edit]

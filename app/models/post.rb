@@ -6,7 +6,7 @@ class Post < ApplicationRecord
 	validates :user_id, presence: true
 	validates :content, presence: true, length: {maximum: 1500}
 
-	#Reimplement this with regular expression later
+	#TODO: Reimplement this with regular expression later
   #script_tag = /<script>.+<\/script>/
 	#Disallow Script Tags, especially important for :content attribute since show allows html_safe due to ckeditor on create/edit text area
 	def check_javascript
@@ -23,6 +23,8 @@ class Post < ApplicationRecord
 	end
 
 	def check_profanity
+		#TODO: Eventually this will be updated with long list of profane words
+		#In YAML file to keep the model... appropriate
 		profane_words = %w(abra kadabra blahblah)
 		post_title_arr = self.title.downcase.split(" ")
 		post_content_arr = self.content.downcase.split(" ")
