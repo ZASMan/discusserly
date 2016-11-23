@@ -6,6 +6,8 @@ class Post < ApplicationRecord
 	validates :user_id, presence: true
 	validates :content, presence: true, length: {maximum: 1500}
 
+	#Reimplement this with regular expression later
+  #script_tag = /<script>.+<\/script>/
 	#Disallow Script Tags, especially important for :content attribute since show allows html_safe due to ckeditor on create/edit text area
 	def check_javascript
 		#Unlike check profanity, leave it as string rather than array (in case the user simply submitted one long tag with no spaces)

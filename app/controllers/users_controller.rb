@@ -19,7 +19,6 @@ class UsersController < ApplicationController
 
 	def new
 		@user = User.new
-		render "new"
 	end
 
 	#Users will be redirected if attempting to use the signup page while logged in
@@ -43,6 +42,7 @@ class UsersController < ApplicationController
 
 	#This is for the account settings page (only changing email and password)
 	def edit
+		Rails.logger.warn("Rendering account settings page.")
 		@user = User.find(params[:id])
 	end
 
@@ -51,9 +51,11 @@ class UsersController < ApplicationController
 		@user = User.find(params[:id])
 		respond_to do |format|
 			if @user.update_attributes(account_settings_params)
+				Rails.logger.warn("Your settings have been successfully updated.")
 				flash.now[:success] = "Your settings have been successfully updated."
 				format.html {redirect_to @user}
 			else
+				Rails.logger.warn("Please be sure to fill out your email, password, and password confirmation.")
 				format.html {redirect_to edit_user_path}
 				flash[:error] = "Please be sure to fill out your email, password, and password confirmation."
 			end
@@ -61,6 +63,7 @@ class UsersController < ApplicationController
 	end
 
 	def edit_profile
+		Rails.logger.warn("Rendering edit profile page.")
 		@user = User.find(params[:id])
 	end
 
@@ -69,9 +72,11 @@ class UsersController < ApplicationController
 		@user = User.find(params[:id])
 		respond_to do |format|
 			if @user.update_attributes(user_profile_params)
+				Rails.logger.warn("Your profile has been successfully updated.")
 				flash.now[:success] = "Your profile has been updated."
 				format.html {redirect_to @user}
 			else
+				Rails.logger.warn("Please be sure to fill out all the required profile form fields.")
 				format.html {redirect_to edit_profile_user_path}
 				flash[:error] = "Please be sure to fill out all the required profile form fields."
 			end
@@ -105,7 +110,7 @@ class UsersController < ApplicationController
 	def already_logged_in
 		#current user is not nil
 		if !current_user.nil?
-			redirect_to user_path(current_user.id)
+			redirect_to user_path(current_user)
 		end
 	end
 
