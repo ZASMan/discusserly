@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161117181448) do
+ActiveRecord::Schema.define(version: 20161121021326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,9 @@ ActiveRecord::Schema.define(version: 20161117181448) do
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
     t.boolean  "banned",            default: false
+    t.text     "about_me"
+    t.string   "location"
+    t.string   "image_url"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
 

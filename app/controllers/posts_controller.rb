@@ -26,7 +26,7 @@ class PostsController < ApplicationController
 				post_content_str = @post.content.downcase
 				if post_title_str.include? "*filtered due to malicious content*" or post_content_str.include? "*filtered due to malicious content*"
 					current_user.ban_user
-			i	end
+				end
 			else
 				format.html {render :new }
 				flash[:error] = "Please be sure to add a title and content to your post."

@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
 				end
 				log_in user
 				remember user
-				redirect_to user
+				redirect_to root_url
 			#User not Activated
 			else
 				message = "Account not activated. Check your email for the activation link."
