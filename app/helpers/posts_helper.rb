@@ -1,6 +1,6 @@
 module PostsHelper
 	
-	#Redirects viewer from edit/update/destroy page unless 
+	#Redirects user from edit/update/destroy page unless 
 	#They are an admin or post owner
 	def correct_post_owner
 		@post = Post.find(params[:id])

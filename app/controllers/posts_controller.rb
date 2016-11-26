@@ -1,14 +1,12 @@
 class PostsController < ApplicationController
 	before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
 	before_action :correct_post_owner, only: [:edit, :update, :destroy]
-	#We'll let banned users look at posts :)
 	before_action :check_banned_user, only: [:index, :show, :new, :create, :edit, :update, :destroy]
 	#Note: In the sessions controller, unconfirmed users will be
 	#Automatically redirected to root_url and told to confirm email
 
 	def new
 		@post = Post.new
-		render 'new'
 	end
 
 	def create
@@ -40,13 +38,14 @@ class PostsController < ApplicationController
 		@post = Post.find(params[:id])
 	end
 
+	#TODO: Format html on this method
 	def update
 		@post = Post.find(params[:id])
 		if @post.update_attributes(post_params)
 			flash.now[:success] = "Post has been successfully updated."
 			redirect_to @post
 		else
-			
+			flash.now[:notice] = "Please fill all required profile fields."
 			render 'edit'
 		end
 	end

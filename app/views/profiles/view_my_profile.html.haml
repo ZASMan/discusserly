@@ -1,0 +1,31 @@
+.container
+	.row
+		.col-md-6
+			.panel.panel-primary{:style => 'text-align:center'}
+				.panel-heading
+					.panel-title
+						.row
+							.col-lg-12
+								%h1{:style => 'font-weight: bold'}
+									=@current_user_profile.user.name.capitalize
+						.row
+							.col-lg-12
+								<center>
+								=image_tag(@current_user_profile.image_url, class: 'img-responsive img-rounded')
+								</center>
+						.row
+							.col-md-6
+								%h5{:style => 'font-weight:bold'}
+									Location:
+								%h5
+									=@current_user_profile.location.capitalize
+							.col-md-6
+								%h5{:style => 'font-weight: bold'}
+									Occupation:
+								%h5
+									=@current_user_profile.occupation.capitalize
+				.panel-body
+					%h5{:style => 'font-weight: bold'}
+						About Me
+					%h5
+						=@current_user_profile.about_me
