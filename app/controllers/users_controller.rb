@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
-	before_action :logged_in_user, only: [:index, :edit, :update, :edit_profile, :update_profile, :destroy]
-	before_action :correct_user, only: [:edit, :update, :edit_profile, :update_profile]
+	before_action :logged_in_user, only: [:index, :edit, :update,:destroy]
+	before_action :correct_user, only: [:edit, :update,]
 	before_action :admin_user, only: :destroy
 	before_action :already_logged_in, only: [:new, :create]
 	#Banned users cannot see anything related to users
-	before_action :check_banned_user, only: [:index, :show, :edit, :update, :edit_profile, :update_profile, :destroy]
+	before_action :check_banned_user, only: [:index, :show, :edit, :update,  :destroy]
 	#Note: In the sessions controller, unconfirmed users will be
 	#Automatically redirected to root_url and told to confirm email
 
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
 		@user = User.find(params[:id])
 	end
 
-	#This is for the account settings page (only changing email and password)
+	#This is for the account settings page
 	def edit
 		Rails.logger.warn("Rendering account settings page.")
 		@user = User.find(params[:id])
@@ -62,28 +62,6 @@ class UsersController < ApplicationController
 		end
 	end
 
-	def edit_profile
-		Rails.logger.warn("Rendering edit profile page.")
-		@user = User.find(params[:id])
-	end
-
-	#For update profile
-	def update_profile
-		@user = User.find(params[:id])
-		respond_to do |format|
-			if @user.update_attributes(user_profile_params)
-				Rails.logger.warn("Your profile has been successfully updated.")
-				flash.now[:success] = "Your profile has been updated."
-				format.html {redirect_to @user}
-			else
-				Rails.logger.warn("Please be sure to fill out all the required profile form fields.")
-				format.html {redirect_to edit_profile_user_path}
-				flash[:error] = "Please be sure to fill out all the required profile form fields."
-			end
-		end
-	end
-
-
 	#Only Admins can Destroy Users
 	def destroy
 		User.find(params[:id]).destroy
@@ -93,17 +71,9 @@ class UsersController < ApplicationController
 
 	private
 
-	
-	def user_signup_params
-		params.require(:user).permit(:name, :email, :password, :password_confirmation)
-	end
-
+	#Params for account settings
 	def account_settings_params
 		params.require(:user).permit(:email, :password, :password_confirmation)
-	end
-
-	def user_profile_params
-		params.require(:user).permit(:name, :about_me, :location, :image_url)
 	end
 
 	#For redirecting users who are already authenticated to their own profile page

@@ -1,6 +1,8 @@
 class User < ApplicationRecord
 	#User has many posts which wil be destroyed if user destroyed
 	has_many :posts, dependent: :destroy
+	#User has one profile
+	has_one :profile, dependent: :destroy
 	attr_accessor :remember_token, :activation_token, :reset_token
 	#Create an activation digest for user to register account
 	before_create :create_activation_digest
@@ -88,7 +90,12 @@ class User < ApplicationRecord
 	def ban_user
 		update_attribute(:banned, true)
 	end
-
+	
+	#Unban user
+	def unban_user
+		update_attribute(:banned, false)
+	end
+	
 	private
 
 		def downcase_email
