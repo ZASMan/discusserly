@@ -40,20 +40,8 @@ class ProfilesController < ApplicationController
 		end
 	end
 	
-	def view_my_profile
-		@current_user_id = current_user.id
-		@profile_array = []
-		@profiles = Profile.all
-		@profiles.each do |profile|
-			if profile.user_id == @current_user_id
-				@profile_array.push(profile)
-			end
-		end
-		@current_user_profile = @profile_array[0]
-	end
-
 	def show
-		
+		@profile = Profile.find(params[:id])	
 	end
 	
 	private

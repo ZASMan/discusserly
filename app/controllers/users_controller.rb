@@ -23,8 +23,7 @@ class UsersController < ApplicationController
 
 	#Users will be redirected if attempting to use the signup page while logged in
 	def create
-		#Instance Variable for user object being equal to user_params
-		@user = User.new(user_signup_params)
+		@user = User.new(user_params)
 		respond_to do |format|
 			if @user.save
 				@user.send_activation_email	
@@ -50,7 +49,7 @@ class UsersController < ApplicationController
 	def update
 		@user = User.find(params[:id])
 		respond_to do |format|
-			if @user.update_attributes(account_settings_params)
+			if @user.update_attributes(user_params)
 				Rails.logger.warn("Your settings have been successfully updated.")
 				flash.now[:success] = "Your settings have been successfully updated."
 				format.html {redirect_to @user}
@@ -71,24 +70,23 @@ class UsersController < ApplicationController
 
 	private
 
-	#Params for account settings
-	def account_settings_params
-		params.require(:user).permit(:email, :password, :password_confirmation)
-	end
-
-	#For redirecting users who are already authenticated to their own profile page
-	def already_logged_in
-		#current user is not nil
-		if !current_user.nil?
-			redirect_to user_path(current_user)
+		def user_params
+			params.require(:user).permit(:email, :password, :password_confirmation)
 		end
-	end
 
-	#Must check and make sure current user is logged in AND banned
-	def check_banned_user
-		if !current_user.nil? && current_user.banned?
-			redirect_to forbidden_path
+		#For redirecting users who are already authenticated to their own profile page
+		def already_logged_in
+			#current user is not nil
+			if !current_user.nil?
+				redirect_to user_path(current_user)
+			end
 		end
-	end
+
+		#Must check and make sure current user is logged in AND banned
+		def check_banned_user
+			if !current_user.nil? && current_user.banned?
+				redirect_to forbidden_path
+			end
+		end
 
 end

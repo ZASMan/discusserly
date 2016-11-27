@@ -16,8 +16,6 @@ Rails.application.routes.draw do
 	delete 'logout' => 'sessions#destroy'
 	#Banned Users Redirect
 	get 'forbidden' => 'application#forbidden'
-  #Profiles
-	get 'view_my_profile' => 'profiles#view_my_profile'
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 	root 'posts#index'
 	#Custom RESTful action since there is an "update account settings"
