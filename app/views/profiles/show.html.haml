@@ -4,15 +4,30 @@
 			.panel.panel-primary{:style => 'text-align:center'}
 				.panel-heading
 					.panel-title
-						-#%h5
-							=@profile.user.name
-						%h5
-							=@profile.location
-						%h5
-							=@profile.occupation
-						%img{:src => '@profile.image_url', :class => 'img-responsive img-rounded', :style => 'height:250px; width:250px'}
-		.col-md-6
-			.panel.panel-primary
+						.row
+							.col-lg-12
+								%h1{:style => 'font-weight: bold'}
+									=@profile.user.name.capitalize
+						.row
+							.col-lg-12
+								<center>
+								=image_tag(@profile.image_url, class: 'img-responsive img-rounded')
+								</center>
 				.panel-body
-					%h5
-						=@profile.about_me
+					.row
+						.col-md-6
+							%h5{:style => 'font-weight:bold'}
+								Location:
+							%h5
+								=@profile.location.capitalize
+						.col-md-6
+							%h5{:style => 'font-weight: bold'}
+								Occupation:
+							%h5
+								=@profile.occupation.capitalize
+					.row
+						.col-lg-12
+							%h5{:style => 'font-weight: bold'}
+								About Me
+							%h5
+								=@profile.about_me

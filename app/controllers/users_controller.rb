@@ -23,12 +23,13 @@ class UsersController < ApplicationController
 
 	#Users will be redirected if attempting to use the signup page while logged in
 	def create
-		#Instance Variable for user object being equal to user_params
-		@user = User.new(user_signup_params)
+		@user = User.new(user_params)
 		respond_to do |format|
 			if @user.save
 				@user.send_activation_email	
 				format.html {redirect_to root_url, notice: "Thank you for signing up! You will have received a confirmation link in your email shortly which you must click before posting."}
+				#Create User Profile on Successful User Save
+				@user.create_profile(location: "Add your location here.", occupation: "Add your occupation here.", about_me: "Write a little bit about yourself here!", image_url: "Add a link to a profile image here (E.G. right click image with 'copy image location' and paste here)")
 			else
 				format.html { redirect_to signup_path, notice: "Please enter a valid e-mail address and a matching password and password confirmation. Your password must contain 8 or more characters, a digit (0-9), at least one lower case character, at least one upper case character, and a symbol."}
 			end
@@ -50,7 +51,7 @@ class UsersController < ApplicationController
 	def update
 		@user = User.find(params[:id])
 		respond_to do |format|
-			if @user.update_attributes(account_settings_params)
+			if @user.update_attributes(user_params)
 				Rails.logger.warn("Your settings have been successfully updated.")
 				flash.now[:success] = "Your settings have been successfully updated."
 				format.html {redirect_to @user}
@@ -71,24 +72,23 @@ class UsersController < ApplicationController
 
 	private
 
-	#Params for account settings
-	def account_settings_params
-		params.require(:user).permit(:email, :password, :password_confirmation)
-	end
-
-	#For redirecting users who are already authenticated to their own profile page
-	def already_logged_in
-		#current user is not nil
-		if !current_user.nil?
-			redirect_to user_path(current_user)
+		def user_params
+			params.require(:user).permit(:email, :password, :password_confirmation)
 		end
-	end
 
-	#Must check and make sure current user is logged in AND banned
-	def check_banned_user
-		if !current_user.nil? && current_user.banned?
-			redirect_to forbidden_path
+		#For redirecting users who are already authenticated to their own profile page
+		def already_logged_in
+			#current user is not nil
+			if !current_user.nil?
+				redirect_to root_url
+			end
 		end
-	end
+
+		#Must check and make sure current user is logged in AND banned
+		def check_banned_user
+			if !current_user.nil? && current_user.banned?
+				redirect_to forbidden_path
+			end
+		end
 
 end

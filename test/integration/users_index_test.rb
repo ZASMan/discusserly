@@ -3,10 +3,20 @@ require 'test_helper'
 class UsersIndexTest < ActionDispatch::IntegrationTest
 
 	def setup
+		location = Faker::Address.city.capitalize + ", " + Faker::Address.country.capitalize
+		occupation = Faker::Company.profession.capitalize
+		about_me = Faker::Hipster.paragraph
+		image_url = Faker::Avatar.image("my-own-slug", "50x50", "bmp", "set1", "bg1")
+		#Users
 		@admin_user = users(:test_user)
 		@non_admin = users(:second_test_user)
 		@unconfirmed_user = users(:unconfirmed_test_user)
 		@banned_user = users(:banned_user)
+		#Profiles
+		@admin_user_profile = @admin_user.create_profile(location: location, occupation: occupation, about_me: about_me, image_url: image_url)
+		@non_admin_profile = @non_admin.create_profile(location: location, occupation: occupation, about_me: about_me, image_url: image_url)
+		@unconfirmed_user_profile = @unconfirmed_user.create_profile(location: location, occupation: occupation, about_me: about_me, image_url: image_url)
+		@banned_user_profile = @banned_user.create_profile(location: location, occupation: occupation, about_me: about_me, image_url: image_url)
 	end
 
 	test "for admin index includes pagination and delete links" do
@@ -18,7 +28,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
 		first_page_of_users.each do |user|
 			#Only activated users appear on the index
 			if user.activated?
-				assert_select 'a', text: user.name
+				assert_select 'h5', text: user.name
 			end
 			unless user == @admin_user
 				assert_select 'a', text: 'Delete'

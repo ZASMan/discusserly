@@ -1,7 +1,5 @@
 require 'test_helper'
 
 class ProfileTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  #Profile is initialized on creation of User through signup
 end
