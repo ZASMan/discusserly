@@ -35,3 +35,16 @@
 								=link_to 'Edit Profile', edit_profile_path(@profile), :class => 'btn btn-warning'
 							-elsif logged_in? && current_user.admin?
 								=link_to 'Edit Profile', edit_profile_path(@profile), :class => 'btn btn-warning'
+		.col-md-6
+			.panel.panel-primary{:style => 'text-align:center'}
+				.panel-heading
+					.panel-title
+						%h1 Wall Posts
+				.panel-body
+					-@profile.comments.each do |comment|
+						-if @profile.comments.length == 0
+							%h5 No Wall Posts Yet!
+						-else
+							=render partial: 'comments/comments', locals: { commentable: @profile}
+					-if logged_in?
+						=render partial: 'comments/comment_form', locals: {commentable: @profile}

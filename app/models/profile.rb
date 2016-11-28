@@ -1,5 +1,6 @@
 class Profile < ApplicationRecord
   belongs_to :user
+	has_many :comments, as: :commentable
 	validates :location, presence: true, length: {maximum: 256}
 	validates :occupation, presence: true, length: {maximum: 256}
 	validates :about_me, presence: true, length: {maximum: 2000}

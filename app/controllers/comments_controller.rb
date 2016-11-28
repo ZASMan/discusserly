@@ -1,38 +1,34 @@
-class CommentsController < ApplicatioinController
+class CommentsController < ApplicationController
+
+	#before action make sure logged in
+
 	def create
-		if params[:post_id]
-			@parent = Post.find(params[:post_id])
-		elsif params[:profile_id]
-			@parent = Profile.find(params[:profile_id])
-		end
-		@comment = @parent.comments.build(comment_params)
-		@comment.user = current_user
+		@comment = @commentable.comments.build(comment_params)
+		@comment.user_id = current_user.id
 		if @comment.save
-			if @parent.is_a?(Post)
-				flash[:notice] = 'Comment saved successfully.'
-				redirect_to @parent
-			elsif @parent.is_a?(Profile)
-				flash[:notice] = 'Comment saved successfully.'
-				redirect_to @parent
-			end
+			flash[:success] = "Successfully added comment."
+			redirect_to @commentable
+		else
+			flash[:error] = "Unable to add comment."
+			redirect_to @commentable
 		end
 	end
 
 
 	def destroy
-		comment = Comment.find(params[:id])
-		if comment.destroy
+		@comment = Comment.find(params[:id])
+		if @comment.destroy
 			flash[:notice] = 'Comment was successfully deleted.'
-			redirect_to :back
-		else
-			flash[:alert] = "Comment couldn't be deleted. Try again."
-			redirect_to :back		
+			redirect_to root_url
 		end
+	end
+
+	def show
 	end
 
 	private
 		
 		def comment_params
-			params.require(:comment).permit(:body)
+			params.require(:comment).permit(:body, :user_id)
 		end
 end

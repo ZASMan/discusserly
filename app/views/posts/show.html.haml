@@ -17,3 +17,13 @@
 					-if logged_in? && @post.user_id == current_user.id
 						=link_to 'Edit', edit_post_path(@post), :class => 'btn btn-warning'
 						=link_to 'Delete', @post, method: :delete, data: { confirm: 'Are you sure you wish to delete this post? This cannot be undone.'}, :class => 'btn  btn-danger'
+		.col-md-6
+			.panel.panel-primary{:style => 'text-align:center'}
+				.panel-heding
+					.panel-title
+						%h5 Comments
+				.panel-body
+					= render partial: 'comments/comments', locals: {commentable: @post}
+					-if logged_in?
+						= render partial: 'comments/comment_form', locals: {commentable: @post}
+							

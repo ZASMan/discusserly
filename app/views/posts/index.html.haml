@@ -28,13 +28,13 @@
 								%p
 									=post.content.html_safe[0, 200] + "..."
 								<center>
-								=link_to 'Read More...', post_path(post)
+								=link_to 'Read More...', post_path(post), :class => 'btn btn-primary'
 								%br
 								-if logged_in? && current_user.admin?
 									-#Admin Users Will See Edit and Delete Options for All Posts
 									=link_to 'Edit', edit_post_path(post), :class => 'btn btn-warning'
 									=link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure you wish to delete this post? This cannot  be undone'}, :class => 'btn btn-danger'
-								-if logged_in? && post.user_id == current_user.id
+								-elsif logged_in? && post.user_id == current_user.id
 									-#Users can only see Edit and Delete Options for their Own Posts
 									=link_to 'Edit', edit_post_path(post), :class => 'btn btn-warning'
 									=link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure you wish to delete this post? This cannot be undone'}, :class => 'btn btn-danger'

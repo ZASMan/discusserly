@@ -1,0 +1,6 @@
+%h5 Add a comment
+
+=form_for [commentable, Comment.new] do |f|
+	=f.label :body
+	=f.text_field :body, :class => "form-control", :style => "width:500px",:placeholder => "Add a comment."
+	=f.submit "Create Comment", :class => 'btn btn-primary'
