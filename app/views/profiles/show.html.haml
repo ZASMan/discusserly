@@ -32,6 +32,6 @@
 							%h5
 								=@profile.about_me
 							-if logged_in? && @profile.user_id == current_user.id
-								=link_to 'Edit Profile' edit_profile_path(@profile), :class => 'btn btn-warning'
+								=link_to 'Edit Profile', edit_profile_path(@profile), :class => 'btn btn-warning'
 							-elsif logged_in? && current_user.admin?
-								=link_to 'Edit Profile' edit_profile_path(@profile), :class => 'btn btn-warning'
+								=link_to 'Edit Profile', edit_profile_path(@profile), :class => 'btn btn-warning'
