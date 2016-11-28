@@ -9,22 +9,25 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 	
 	test "invalid signup information" do
 		get signup_path
+		#TODO: Must also assert that profile count does not increase by 1
 		assert_no_difference 'User.count' do
 			post users_path, params: {user: { name: "", email: "user@invalid",
 																				password: "foo",
 																				password_conirmation: "bar"}}
 		end
-		assert_template 'users/new'
+		assert_redirected_to signup_path
 	end
 
 	#Please make note to the PASSWORD_FORMAT in app/models/user.rb
 	test "valid signup information" do
-		get signup_path
+		get signup_path	
 		assert_difference 'User.count', 1 do
 			post users_path, params: {user: { name: "Example User", email: "user@example.com",
 																				password: "Foobar#1",
 																				password_confirmation: "Foobar#1"}}
 		end
+		#TODO: Must also assert profile count increase
+		#Assert Email Delivery
 		assert_equal 1, ActionMailer::Base.deliveries.size
 		#Assigns method allows us to access instance avariables in corresponding action
 		user = assigns(:user)
@@ -50,9 +53,9 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 		get login_path
 		post login_path, params: {session: { email: @user.email, password: 'password' }}
 		assert is_logged_in?
-		assert_redirected_to @user
+		assert_redirected_to root_url
 		follow_redirect!
 		get signup_path
-		assert_redirected_to @user
+		assert_redirected_to root_url
 	end
 end

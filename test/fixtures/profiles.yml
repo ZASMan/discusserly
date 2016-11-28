@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  location: MyString
-  occupation: MyString
-  about_me: MyText
-  user: one
+ location: America
+ occupation: Doctor
+ about_me: I am a doctor in America
+ image_url: wikipedia.org
 
 two:
-  location: MyString
-  occupation: MyString
-  about_me: MyText
-  user: two
+ location: America
+ occupation: Police
+ about_me: I am a police in America
+ image_url: wikipedia.org

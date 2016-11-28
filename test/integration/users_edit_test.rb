@@ -13,7 +13,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
 		patch user_path(@user), params: { user: { email: "test@invalid",
 																							password: "foo",
 																							password_confirmation: "bar"}}
-		assert_template 'users/edit'
+		assert_redirected_to edit_user_path
 	end
 
 	test "successful edit" do
