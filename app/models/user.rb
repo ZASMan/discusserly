@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 	#User has many posts which wil be destroyed if user destroyed
 	has_many :posts, dependent: :destroy
+	has_many :comments
 	#User has one profile
 	has_one :profile, dependent: :destroy
 	attr_accessor :remember_token, :activation_token, :reset_token

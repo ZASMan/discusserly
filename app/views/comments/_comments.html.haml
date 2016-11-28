@@ -1,0 +1,24 @@
+-commentable.comments.each do |comment|
+	-if commentable.comments.length == 0
+		%h5 No Comments Yet!
+	-else
+		.well
+			.row
+				.col-md-6
+					%h5{:style => 'font-weight:bold'} Posted by:
+					-@users.each do |user|
+						-if user.id == comment.user_id
+							-@commenter = user
+					%h5
+						=@commenter.name
+					=link_to 'View Profile', profile_path(@commenter.profile)
+				.col-md-6
+					%h5{:style => 'font-weight: bold'}
+						Wall Post:
+					%h5
+						= '"' + comment.body + '"'
+
+					-if logged_in? && comment.user_id == current_user.id
+						=link_to 'Delete Comment', comment, method: :delete, data: { confirm: "Are you sure?"}
+					-elsif logged_in? && comment.user_id == current_user.id
+						=link_to 'Delete Comment', comment, method: :delete, data: { confirm: "Are you sure?"}

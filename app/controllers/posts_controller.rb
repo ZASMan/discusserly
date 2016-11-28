@@ -57,6 +57,7 @@ class PostsController < ApplicationController
 	def show
 		@post = Post.find(params[:id])
 		@post_submitted_at = @post.created_at.strftime("%a, %B %d, %Y")
+		@users = User.all
 		render 'show'
 	end
 

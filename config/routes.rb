@@ -23,7 +23,12 @@ Rails.application.routes.draw do
 	resources :sessions
 	resources :users
 	resources :account_activations, only: [:edit]
+	resources :comments
 	resources :password_resets, only: [:new, :create, :edit, :update]
-	resources :profiles, only: [:edit, :update, :show]
-	resources :posts
+	resources :profiles, only: [:edit, :update, :show] do
+		resources :comments, module: :profiles
+	end
+	resources :posts do
+		resources :comments, module: :posts
+	end
 end

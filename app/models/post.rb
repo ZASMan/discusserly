@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
   belongs_to :user
+	has_many :comments, as: :commentable
 	default_scope -> { order(created_at: :desc) }
 	before_save :check_profanity, :check_javascript
 	validates :title, presence: true, length: {maximum: 256}
