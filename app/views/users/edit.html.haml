@@ -5,10 +5,11 @@
 			.form-group
 				=form_for @user do |f|
 					=f.label :email
-					=f.text_field :email, :class => "form-control", :style => 'width:500px'
+					=f.text_field :email, :class => "form-control account-settings-field", :style => 'width:500px', :id => 'email-field'
 					=f.label :password
-					=f.password_field :password, :class => "form-control", :style => 'width:500px'
+					=f.password_field :password, :class => "form-control account-settings-field", :style => 'width:500px', :id => 'password-field'
 					=f.label :password_confirmation
-					=f.password_field :password_confirmation, :class => "form-control", :style => 'width:500px'
-					=f.submit "Save Changes", :class => "btn btn-primary"
+					=f.password_field :password_confirmation, :class => "form-control account-settings-field", :style => 'width:500px', :id => 'password-confirmation-field'
+					=f.submit "Save Changes", :class => "btn btn-primary", :id => 'account-settings-submit'
+				.errors{:style => 'color:red'}
 		.col-md-6

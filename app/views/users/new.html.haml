@@ -5,14 +5,16 @@
 			.form-group
 				=form_for @user do |f|
 					=f.label :name
-					=f.text_field :name, :class => "form-control"
+					=f.text_field :name, :class => "form-control signup-field", :id =>"name-field"
 					=f.label :email
-					=f.text_field :email, :class => "form-control"
+					=f.text_field :email, :class => "form-control signup-field", :id => "email-field"
 					=f.label :password
-					=f.password_field :password, :class => "form-control"
+					=f.password_field :password, :class => "form-control signup-field", :id => "password-field"
 					=f.label :password_confirmation
-					=f.password_field :password_confirmation, :class => "form-control"
-					=f.submit "Sign up", :class => "btn btn-primary"
+					=f.password_field :password_confirmation, :class => "form-control signup-field", :id => "password-confirmation-field"
+					=f.submit "Sign up", :class => "btn btn-primary", :id => "signup-submit"
+				.errors{:style => "color:red"}
+
 		.col-md-6
 			%h1 Your secure password must:
 			%ul

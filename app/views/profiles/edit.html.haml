@@ -5,11 +5,12 @@
 		.form-group
 		=form_for @profile do |f|
 			=f.label :location
-			=f.text_field :location, :class => 'form-control', :style => 'width:500px'
+			=f.text_field :location, :class => 'form-control profile-field', :style => 'width:500px', :id => 'location-field'
 			=f.label :occupation
-			=f.text_field :occupation, :class => 'form-control', :style => 'width:500px'
+			=f.text_field :occupation, :class => 'form-control profile-field', :style => 'width:500px', :id => 'occupation-field'
 			=f.label :image_url
-			=f.text_field :image_url, :class => 'form-control', :style => 'width:500px'
+			=f.text_field :image_url, :class => 'form-control profile-field', :style => 'width:500px', :id => 'image-url-field'
 			=f.label :about_me
-			=f.text_field :about_me, :class => 'form-control', :style => 'width:500px;height: 200px'
-			=f.submit 'Save Changes', :class => 'btn btn-primary'
+			=f.text_field :about_me, :class => 'form-control profile-field', :style => 'width:500px', :id => 'about-me-field'
+			=f.submit 'Save Changes', :class => 'btn btn-primary', :id => "profile-edit-submit"
+		.errors{:style => 'color:red'}
