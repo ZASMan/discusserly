@@ -14,7 +14,6 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require ckeditor/init
-//= require scripts
 //= require forms
 //= require turbolinks
 //= require_tree .
