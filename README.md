@@ -17,15 +17,19 @@ Profile Model
 Posts Model
 * Model + Validation: I implemented my own check profanity and check javascript methods to filter out profanity and any potential script injections. Profanity will automatically be filtered when displayed on the page (right now it's saved in an array in the model, I'll implement a yml file eventually), and users who attempt to submit malicious scripts will automatically be banned. A check javascript method is necessary because I used html safe on the show page for posts because I used ckeditor to allow users to format their posts (uses HTML). I also included the typical built in presence and length checks, order posts from newest to oldest.
 
+Comments Model
+* Polymorphic Association, comments are associated with posts and profiles.
+
 Tests
 * Minitest was used as the testing framework
 * Before implenting each feature, I would create a test with my expectations, write out the code for the features with how I think they should work, and run the tests and refactor. This was 100x better than my previous untested projects and has helped me become a much more effective developer
 * This test driven development philosophy made me develop my app much more efficiently, but I would still manually log into my app and test features if I hit a wall, simply because visualization always helps.
 
-Coming Soon (As of 11/27/16)
-* Statuses for profile pages
-* Wall Posts for Profile Pages
+Coming Soon (As of 11/28/16)
 * Comments on Posts
 * Friending or following users
 * Uploading own profile images
-* .... and of course.... all the associated tests.
+* Allow users to delete comments on their profile or post (currently they can only delete their own comments on both profiles or posts unless they're an admin)
+* Overall better and more attractive UI, basically just boostrapped for now since it was more of a back end project at first.
+* Some kind of fancy client side action.
+* More test cases.
