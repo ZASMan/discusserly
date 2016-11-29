@@ -35,6 +35,7 @@ Coming Soon (As of 11/28/16)
 * Allow users to delete comments on their profile or post (currently they can only delete their own comments on both profiles or posts unless they're an admin)
 * Overall better and more attractive UI, basically just boostrapped for now since it was more of a back end project at first.
 * Some kind of fancy client side action.
+* Add profanity filter on comment model
 * More test cases. A few unsolved failures at the moment which I haven't figured out.
 
 Any suggestions on how I can improve this app are welcome! Submit a pull request or issue!
