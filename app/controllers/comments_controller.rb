@@ -1,6 +1,8 @@
 class CommentsController < ApplicationController
-
-	#before action make sure logged in
+	before_action :logged_in_user, only: [:create, :destroy]
+	before_action :correct_comment_owner, only: [:destroy]
+	#NOTE: No need to check for banned user, since comments are
+	#embedded in post and profile views which already check if banned
 
 	def create
 		@comment = @commentable.comments.build(comment_params)

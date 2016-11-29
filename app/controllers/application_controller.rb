@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 	include UsersHelper
 	include PostsHelper
 	include ProfilesHelper
+	include CommentsHelper
 
 	def forbidden
 		if current_user.banned?
