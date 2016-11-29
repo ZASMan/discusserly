@@ -26,7 +26,7 @@ class Post < ApplicationRecord
 	def check_profanity
 		#TODO: Eventually this will be updated with long list of profane words
 		#In YAML file to keep the model... appropriate
-		profane_words = %w(ass asshole bastard bitch damn damnit fuck fucker fucked motherfucker shit slut whore)
+		profane_words = %w(ass asshole bastard bitch cock damn damnit dick fuck fucker fucked motherfucker shit slut whore)
 		post_title_arr = self.title.downcase.split(" ")
 		post_content_arr = self.content.downcase.split(" ")
 		filter = ["*filtered*"]
