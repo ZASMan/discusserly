@@ -2,10 +2,10 @@
 	.row
 		.col-md-6
 			<center>
-			=form_for @post, html: {multipart: true} do |f|
+			=form_for @post do |f|
 				=f.label :title
 				=f.text_field :title, :class => "form-control"
 				=f.label :content
-				=f.cktext_area :content, :class => "form-control", ckeditor: { language: 'us'}, :style => "height:500px;width:500px"
+				=f.text_area :content, :class => "form-control", :style => "width:500px"
 				=f.submit "Create Post", :class => "btn btn-primary"
 			</center>

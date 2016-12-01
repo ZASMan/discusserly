@@ -14,7 +14,12 @@
 					Wall Post:
 				%h5
 					= '"' + comment.body + '"'
-				-if logged_in? && comment.user_id == current_user.id
-					=link_to 'Delete Comment', comment, method: :delete, data: { confirm: "Are you sure?"}
-				-elsif logged_in? && comment.user_id == current_user.id
-					=link_to 'Delete Comment', comment, method: :delete, data: { confirm: "Are you sure?"}
+				-#Admins can delete any comments in posts or profiles
+				-if logged_in? && current_user.admin?
+					=link_to 'Delete Comment', comment, method: :delete, data: { confirm: "Are you sure?"}, :id => 'delete_one'
+				-#Users can delete their own comments on posts
+				-if logged_in? && comment.user_id == current_user.id && comment.commentable_type == "Post" && !current_user.admin?
+					=link_to 'Delete Comment', comment, method: :delete, data: { confirm: "Are you sure?"}, :id => 'delete_two'
+				-#Users can delete any comment on their profiles
+				-if logged_in? && comment.commentable_type == "Profile" && commentable.user_id == current_user.id && !current_user.admin?
+					=link_to 'Delete Comment', comment, method: :delete, data: {confirm: "Are you sure?"}, :id => 'delete_three'
