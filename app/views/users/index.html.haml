@@ -1,9 +1,12 @@
 .container
 	.row
 		.col-md-12
-			%h1 All Members
+			%h1{:style => 'text-align:center'} Discusserly Members
 			%ul.data-index
 				-@users.each do |user|
+					-@profiles.each do |profile|
+						-if user.id == profile.user_id
+							-@user_location = user.profile.location
 					%li
 						%h5{:style => 'font-weight:bold'}
 							Name:
@@ -12,9 +15,11 @@
 						%h5{:style => 'font-weight:bold'}
 							Location:
 						%h5
-							=user.profile.location
+							=@user_location
 						=link_to 'View Profile', profile_path(user.profile)
+						%br
 						=if current_user.admin? && !current_user?(user)
+							=link_to 'Edit', edit_user_path(user), :class => 'btn btn-warning'
 							-link_to 'Delete', user, method: :delete,
 														data: { confirm: "Are you sure?"}, :class => "btn btn-danger"
 

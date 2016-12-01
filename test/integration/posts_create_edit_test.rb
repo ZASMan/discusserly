@@ -49,29 +49,11 @@ class PostsEditTest < ActionDispatch::IntegrationTest
 	test "profane post titles will be automatically filtered on UPDATE" do
 		log_in_as(@non_admin)
 		get edit_post_path(@non_admin_post)
-		patch post_path(@non_admin_post), params: { post: {title: "blahblah abra pizza", content: "pizza is good" }}
+		patch post_path(@non_admin_post), params: { post: {title: "fuck shit pizza", content: "pizza is shit" }}
 		follow_redirect!
 		assert_template 'posts/show'
 		assert_select 'div.panel-title', text: '*filtered* *filtered* pizza'
-		assert_select 'h6', text: "pizza is good"
-	end
-
-	test "users attempting to submit script tags will be filtered and user banned" do
-		log_in_as(@non_admin)
-		get new_post_path
-		assert_difference 'Post.count', 1 do
-			post posts_path params: { post: { title: "<script>hacker.com/leethaxor.js</script>", content: "<script>www.hacker.com/scripts.js</script>" }}
-		end
-		follow_redirect!
-		#They wil be redirected to their show post, but after if they try
-		#to access any other URL they will be directed to forbidden_path
-		@non_admin.banned?
-		assert_redirected_to forbidden_path
-		delete logout_path
-		log_in_as(@admin)
-		#Log in as a new user and see if the filtered post title appears on the posts path (root_url)
-		get posts_path
-		assert_select 'a', text: "*filtered due to malicious content*"
+		assert_select 'h6', text: "pizza is *filtered*"
 	end
 
 	test "banned users attempting to create a new post will be redirected to forbidden page" do

@@ -6,7 +6,6 @@ class UsersEditTest < ActionDispatch::IntegrationTest
 		@user = users(:test_user)
 	end
 
-
 	test "unsuccessful edit" do
 		log_in_as(@user)
 		get edit_user_path(@user)
@@ -24,5 +23,8 @@ class UsersEditTest < ActionDispatch::IntegrationTest
 																						password: "Foobar1!",
 																						password_confirmation: "Foobar1!"}}
 		assert_redirected_to @user
+	end
+	
+	test "only admins can see/update the banned option in the edit view" do
 	end
 end

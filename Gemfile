@@ -66,4 +66,3 @@ gem 'bootstrap-will_paginate'
 
 gem 'bootstrap_form'
 
-gem 'ckeditor'

@@ -17,14 +17,6 @@ class PostsController < ApplicationController
 				flash.now[:success] = "Post has been successfully created."
 				format.html { redirect_to @post}
 				format.json { render :show, status: :created, location: @post }
-				#Ban user if their post contained script tags. On the save
-				#The post model will already have filtered out the content,
-				#So we can verify the content here
-				post_title_str = @post.title.downcase
-				post_content_str = @post.content.downcase
-				if post_title_str.include? "*filtered due to malicious content*" or post_content_str.include? "*filtered due to malicious content*"
-					current_user.ban_user
-				end
 			else
 				format.html {render :new }
 				flash[:error] = "Please be sure to add a title and content to your post."

@@ -11,6 +11,7 @@ class UsersController < ApplicationController
 	def index
 		if current_user.activated?
 			@users = User.where(activated: true).paginate(page: params[:page])
+			@profiles = Profile.all
 		else
 			flash[:error] = "Please confirm your account  before viewing this page."
 			redirect_to root_url
@@ -54,7 +55,7 @@ class UsersController < ApplicationController
 			if @user.update_attributes(user_params)
 				Rails.logger.warn("Your settings have been successfully updated.")
 				flash.now[:success] = "Your settings have been successfully updated."
-				format.html {redirect_to @user}
+				format.html {redirect_to root_url}
 			else
 				Rails.logger.warn("Please be sure to fill out your email, password, and password confirmation.")
 				format.html {redirect_to edit_user_path}
