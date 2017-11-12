@@ -19,7 +19,7 @@ Profile Model
 * Profanity Filter Included on Profile.
 
 Posts Model
-* Implemented a custom profanity cheeck method on before save with a list of profane words stored in a global variable in a module (if anyone has a better suggestion on how to implement this, please let me know). Profane words will come out as "filtered." Any other suggestions would be helfpul as well.
+* Implemented a custom profanity check method on before save with a list of profane words stored in a global variable in a module (if anyone has a better suggestion on how to implement this, please let me know). Profane words will come out as "filtered." Any other suggestions would be helfpul as well.
 
 Comments Model
 * Polymorphic Association, comments are associated with posts and profiles.
